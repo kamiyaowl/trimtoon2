@@ -1,9 +1,13 @@
 <div class="grid-container">
   <h1 class="mat-h1">編集する動画を選択</h1>
   <app-file-button [disabled]="!(loaded$ | async)" accept="video/mp4" [(file)]="srcFile" (fileChange)="onFileSelect($event)"></app-file-button>
-  <video #videoElement controls [hidden]="!srcFileBlobPath" [src]="srcFileBlobPath">
-  </video>
-  <canvas id="canvas-element"></canvas>
+  <div>
+    <video #videoElement controls [hidden]="!srcFileBlobPath" [src]="srcFileBlobPath">
+    </video>
+  </div>
+
+  <button mat-raised-button (click)="onCapture()">キャプチャ</button>
+  <canvas #bufferCanvas width="640" height="360"></canvas>
   <div id="thumbnail-container">
       Seek to <select id="set-video-seconds"></select> seconds <a id="download-link" href="#">Download Thumbnail</a>
   </div>

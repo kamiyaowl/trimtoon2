@@ -11,9 +11,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class DashboardComponent {
   @ViewChild('videoElement') videoElement;
+  @ViewChild('bufferCanvas') bufferCanvas;
 
   srcFile: File | null = null;
-  srcFileBlobPath: string = null;
+  srcFileBlobPath: any = null;
 
   loaded$ = this.predictService.loaded$;
   /** Based on the screen size, switch from standard to one column per row */
@@ -50,12 +51,20 @@ export class DashboardComponent {
   }
   // Videoファイルが選択された際
   onFileSelect(event) {
-    const URL = window.URL || window.webkitURL;
+    const URL = window.URL;
     const objectURL = URL.createObjectURL(this.srcFile);
     this.srcFileBlobPath = this.domSanitizer.bypassSecurityTrustUrl(objectURL);
-    console.log(this.srcFileBlobPath, this.videoElement);
 
-    this.videoElement.nativeElement.currentTime = 100;
+    const video = this.videoElement.nativeElement as HTMLVideoElement;
+    const canvas = this.bufferCanvas.nativeElement as HTMLCanvasElement;
+    console.log(this.srcFileBlobPath, video, canvas);
 
+    video.currentTime = 100;
+  }
+  onCapture() {
+    const video = this.videoElement.nativeElement as HTMLVideoElement;
+    const canvas = this.bufferCanvas.nativeElement as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0,0,640,360);
   }
 }
