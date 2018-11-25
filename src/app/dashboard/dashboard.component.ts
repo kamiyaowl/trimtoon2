@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import * as tf from '@tensorflow/tfjs';
 import { PredictService } from '../service/predict.service';
 
 @Component({
@@ -10,6 +9,7 @@ import { PredictService } from '../service/predict.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+  loaded$ = this.predictService.loaded$;
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -35,9 +35,5 @@ export class DashboardComponent {
     private breakpointObserver: BreakpointObserver,
     private predictService: PredictService,
     ) {
-    tf.loadModel('/assets/model/splat-scene-detect/model.json')
-    .then(x => {
-      console.log(x);
-    });
   }
 }

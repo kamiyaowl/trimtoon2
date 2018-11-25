@@ -26,6 +26,12 @@
       </button>
       <span>Trimtoon 2</span>
     </mat-toolbar>
+
+    <div *ngIf="!(loaded$ | async)">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+        <span>学習済みモデルを読込中です。これにはしばらく時間がかかります...</span>
+    </div>
+
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
