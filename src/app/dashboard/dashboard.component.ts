@@ -46,6 +46,6 @@ export class DashboardComponent {
           });
   }
   onFileSelect(event) {
-    console.log('on file select', event);
+    console.log('on file select', event, 'srcFile', this.srcFile);
   }
 }
