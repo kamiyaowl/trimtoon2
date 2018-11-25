@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { PredictService } from '../service/predict.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,8 @@ import { PredictService } from '../service/predict.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+  srcFile: File | null = null;
+
   loaded$ = this.predictService.loaded$;
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -35,5 +38,14 @@ export class DashboardComponent {
     private breakpointObserver: BreakpointObserver,
     private predictService: PredictService,
     ) {
+      this.loaded$
+          .subscribe(x => {
+            if (!x) { return; }
+
+
+          });
+  }
+  onFileSelect(event) {
+    console.log('on file select', event);
   }
 }

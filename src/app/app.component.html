@@ -29,7 +29,7 @@
 
     <div *ngIf="!(loaded$ | async)">
         <mat-progress-bar mode="buffer"></mat-progress-bar>
-        <span>学習済みモデルを読込中です。これにはしばらく時間がかかります...</span>
+        <span>学習済みモデルを読込中です。これにはしばらく時間がかかります...。一度読み込んだあとはキャッシュされるため高速に起動できます</span>
     </div>
 
     <!-- Add Content Here -->

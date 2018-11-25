@@ -9,11 +9,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatProgressSpinnerModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FileButtonComponent } from './component/file-button/file-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    FileButtonComponent
   ],
   imports: [
     BrowserModule,
