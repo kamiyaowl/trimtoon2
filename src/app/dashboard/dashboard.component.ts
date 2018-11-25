@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import * as tf from '@tensorflow/tfjs';
+import { PredictService } from '../service/predict.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,5 +31,13 @@ export class DashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private predictService: PredictService,
+    ) {
+    tf.loadModel('/assets/model/splat-scene-detect/model.json')
+    .then(x => {
+      console.log(x);
+    });
+  }
 }
