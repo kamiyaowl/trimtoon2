@@ -7,6 +7,25 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class PredictService {
   loaded$ = new BehaviorSubject<boolean>(false);
+  labels = [
+    'battle',
+    'battle_finish',
+    'battle_loby',
+    'battle_matching',
+    'battle_result',
+    'battle_rule',
+    'battle_start',
+    'loading',
+    'menu',
+    'other',
+    'salmon',
+    'salmon_lobby',
+    'salmon_matching',
+    'salmon_miss',
+    'salmon_result',
+    'salmon_start',
+    'weapon_select',
+  ];
   model: tf.Model;
   constructor() {
     tf.loadModel('/assets/model/splat-scene-detect/model.json')
@@ -23,7 +42,7 @@ export class PredictService {
      }
      const inputData = this.transformImageData(id);
      const result = this.model.predict(inputData, { verbose: true });
-     console.log(result);
+     console.log(this.labels, result);
      return result;
    }
 
