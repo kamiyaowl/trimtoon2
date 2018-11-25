@@ -62,9 +62,14 @@ export class DashboardComponent {
     video.currentTime = 100;
   }
   onCapture() {
+    const width = 640;
+    const height = 480;
+
     const video = this.videoElement.nativeElement as HTMLVideoElement;
     const canvas = this.bufferCanvas.nativeElement as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0,0,640,360);
+    ctx.drawImage(video, 0, 0, width, height);
+    const data = ctx.createImageData(width, height);
+    console.log(data);
   }
 }

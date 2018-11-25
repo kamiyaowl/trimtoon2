@@ -8,9 +8,6 @@
 
   <button mat-raised-button (click)="onCapture()">キャプチャ</button>
   <canvas #bufferCanvas width="640" height="360"></canvas>
-  <div id="thumbnail-container">
-      Seek to <select id="set-video-seconds"></select> seconds <a id="download-link" href="#">Download Thumbnail</a>
-  </div>
 
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
