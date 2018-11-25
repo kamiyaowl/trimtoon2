@@ -63,13 +63,13 @@ export class DashboardComponent {
   }
   onCapture() {
     const width = 640;
-    const height = 480;
+    const height = 360;
 
     const video = this.videoElement.nativeElement as HTMLVideoElement;
     const canvas = this.bufferCanvas.nativeElement as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, width, height);
     const data = ctx.createImageData(width, height);
-    console.log(data);
+    this.predictService.predict(data);
   }
 }
