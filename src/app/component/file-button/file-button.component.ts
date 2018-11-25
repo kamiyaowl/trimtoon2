@@ -11,8 +11,7 @@ export class FileButtonComponent implements OnInit {
   @Input() attachMessage = "ファイルを選択";
   @Input() noFileMessage = "ファイルが選択されていません";
 
-  @ViewChild('fileInput')
-  fileInput;
+  @ViewChild('fileInput') fileInput;
   
   @Input() file: File | null = null;
   @Output() fileChange = new EventEmitter<File>();

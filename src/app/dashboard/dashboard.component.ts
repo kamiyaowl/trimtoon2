@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { PredictService } from '../service/predict.service';
 import { filter } from 'rxjs/operators';
-
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+  @ViewChild('videoElement') videoElement;
+
   srcFile: File | null = null;
+  srcFileBlobPath: string = null;
 
   loaded$ = this.predictService.loaded$;
   /** Based on the screen size, switch from standard to one column per row */
@@ -37,15 +40,19 @@ export class DashboardComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private predictService: PredictService,
+    private domSanitizer: DomSanitizer,
     ) {
       this.loaded$
           .subscribe(x => {
             if (!x) { return; }
-
-
+            // TODO: here
           });
   }
+  // Videoファイルが選択された際
   onFileSelect(event) {
-    console.log('on file select', event, 'srcFile', this.srcFile);
+    const URL = window.URL || window.webkitURL;
+    const objectURL = URL.createObjectURL(this.srcFile);
+    this.srcFileBlobPath = this.domSanitizer.bypassSecurityTrustUrl(objectURL);
+    console.log(this.srcFileBlobPath);
   }
 }
