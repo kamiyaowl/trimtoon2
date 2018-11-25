@@ -1,7 +1,7 @@
 <div class="grid-container">
   <h1 class="mat-h1">編集する動画を選択</h1>
   <app-file-button [disabled]="!(loaded$ | async)" accept="video/mp4" [(file)]="srcFile" (fileChange)="onFileSelect($event)"></app-file-button>
-  <video #videoElement controls *ngIf="srcFileBlobPath" [src]="srcFileBlobPath">
+  <video #videoElement controls [hidden]="!srcFileBlobPath" [src]="srcFileBlobPath">
   </video>
   <canvas id="canvas-element"></canvas>
   <div id="thumbnail-container">

@@ -53,6 +53,9 @@ export class DashboardComponent {
     const URL = window.URL || window.webkitURL;
     const objectURL = URL.createObjectURL(this.srcFile);
     this.srcFileBlobPath = this.domSanitizer.bypassSecurityTrustUrl(objectURL);
-    console.log(this.srcFileBlobPath);
+    console.log(this.srcFileBlobPath, this.videoElement);
+
+    this.videoElement.nativeElement.currentTime = 100;
+
   }
 }
