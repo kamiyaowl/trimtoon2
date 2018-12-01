@@ -8,7 +8,9 @@
 
   <button mat-raised-button (click)="onCapture()">キャプチャ</button>
   <canvas #bufferCanvas width="640" height="360"></canvas>
-
+  <pre>
+    {{ predict | json }}
+  </pre>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">

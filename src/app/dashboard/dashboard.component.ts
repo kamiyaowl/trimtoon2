@@ -15,6 +15,7 @@ export class DashboardComponent {
 
   srcFile: File | null = null;
   srcFileBlobPath: any = null;
+  predict: any;
 
   loaded$ = this.predictService.loaded$;
   /** Based on the screen size, switch from standard to one column per row */
@@ -70,6 +71,8 @@ export class DashboardComponent {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, width, height);
     const data = ctx.createImageData(width, height);
-    this.predictService.predict(data);
+
+    const result = this.predictService.predict(data);
+    this.predict = result;
   }
 }
