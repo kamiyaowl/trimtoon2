@@ -72,7 +72,7 @@ export class DashboardComponent {
     ctx.drawImage(video, 0, 0, width, height);
     const data = ctx.createImageData(width, height);
 
-    const result = this.predictService.predict(data);
+    const result = this.predictService.predict(canvas);
     this.predict = result;
   }
 }
