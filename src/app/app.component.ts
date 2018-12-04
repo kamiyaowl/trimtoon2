@@ -9,22 +9,21 @@ export class AppComponent {
   constructor() {
 
   }
-  test() {
-    const model = tf.sequential();
-    model.add(tf.layers.dense({units: 1, inputShape: [1]}));
-
-    // Prepare the model for training: Specify the loss and the optimizer.
-    model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
-
-    // Generate some synthetic data for training.
-    const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
-    const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
-
-    // Train the model using the data.
-    model.fit(xs, ys).then(() => {
-      // Use the model to do inference on a data point the model hasn't seen before:
-      // Open the browser devtools to see the output
-      console.log(model.predict(tf.tensor2d([5], [1, 1])));
-    });
+  async test() {
+    const width = 640;
+    const height = 360;
+    console.log(tf.memory());
+    const model = await tf.loadModel('/assets/model/model.json');
+    model.summary();
+    console.log(tf.memory());
+    const data = tf.fill([640, 360, 3], 0); // TODO: replace canvas
+    console.log(tf.memory());
+    const src = data.reshape([1, 640, 360, 3]);
+    console.log(tf.memory());
+    const dst = model.predict(src) as any;
+    console.log(tf.memory());
+    const index = dst.argMax(1).dataSync()[0];
+    const result = dst.dataSync();
+    console.log(index, result);
   }
 }
