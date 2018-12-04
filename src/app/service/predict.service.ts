@@ -40,7 +40,7 @@ export class PredictService {
       return;
     }
     const inputData = tf
-      .fromPixels(id)
+      .fromPixels(id, 3)
       .reshape([1, 640, 360, 3])
       .cast("float32")
       .div(tf.scalar(255));
