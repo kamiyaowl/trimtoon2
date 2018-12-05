@@ -63,16 +63,19 @@ export class DashboardComponent {
     video.currentTime = 100;
   }
   onCapture() {
-    const width = 640;
-    const height = 360;
+    const width = 80;
+    const height = 45;
 
     const video = this.videoElement.nativeElement as HTMLVideoElement;
     const canvas = this.bufferCanvas.nativeElement as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, width, height);
-    const data = ctx.createImageData(width, height);
+    const data = ctx.getImageData(0, 0, width, height);
+    let sum = 0;
+    data.data.forEach(v => { sum += v; });
+    console.log('sum', sum);
 
-    const result = this.predictService.predict(canvas);
+    const result = this.predictService.predict(data);
     this.predict = result;
   }
 }

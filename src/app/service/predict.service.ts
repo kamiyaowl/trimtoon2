@@ -28,7 +28,7 @@ export class PredictService {
   ];
   model: tf.Model;
   constructor() {
-    tf.loadModel("/assets/model/splat-scene-detect/model.json").then(x => {
+    tf.loadModel("/assets/model/model.json", false).then(x => {
       this.model = x;
       this.loaded$.next(true);
       console.log("model loaded", x);
@@ -41,10 +41,11 @@ export class PredictService {
     }
     const inputData = tf
       .fromPixels(id, 3)
-      .reshape([1, 640, 360, 3])
+      .reshape([1, 80, 45, 3])
       .cast("float32")
       .div(tf.scalar(255));
-
+    inputData.print(true);
+    
     const p = (this.model.predict(inputData) as any).dataSync();
     const ps = Array.from(p).map((p, i) => { return { label: this.labels[i], p: p }});
     const argmax = p.indexOf(Math.max(...p));
