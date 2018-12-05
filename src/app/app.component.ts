@@ -10,15 +10,16 @@ export class AppComponent {
 
   }
   async test() {
-    const width = 640;
-    const height = 360;
+    const labels = ['battle', 'battle_finish', 'battle_loby', 'battle_matching', 'battle_result', 'battle_rule', 'battle_start', 'loading', 'menu', 'other', 'salmon', 'salmon_lobby', 'salmon_matching', 'salmon_miss', 'salmon_result', 'salmon_start', 'weapon_select'];
+    const width = 80;
+    const height = 45;
     console.log(tf.memory());
-    const model = await tf.loadModel('/assets/model/model.json');
+    const model = await tf.loadModel('/assets/model/model.json', false);
     model.summary();
     console.log(tf.memory());
-    const data = tf.fill([640, 360, 3], 0); // TODO: replace canvas
+    const data = tf.fill([width, height, 3], 0); // TODO: replace canvas
     console.log(tf.memory());
-    const src = data.reshape([1, 640, 360, 3]);
+    const src = data.reshape([1, width, height, 3]);
     console.log(tf.memory());
     const dst = model.predict(src) as any;
     console.log(tf.memory());
