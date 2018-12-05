@@ -32,6 +32,7 @@ export class PredictService {
       this.model = x;
       this.loaded$.next(true);
       console.log("model loaded", x);
+      x.summary();
     });
   }
   predict(id: any) {
@@ -45,7 +46,7 @@ export class PredictService {
       .cast("float32")
       .div(tf.scalar(255));
     inputData.print(true);
-    
+
     const p = (this.model.predict(inputData) as any).dataSync();
     const ps = Array.from(p).map((p, i) => { return { label: this.labels[i], p: p }});
     const argmax = p.indexOf(Math.max(...p));
