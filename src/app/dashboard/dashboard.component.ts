@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { interval } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { PredictService } from '../service/predict.service';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
@@ -49,6 +49,11 @@ export class DashboardComponent {
             if (!x) { return; }
             // TODO: here
           });
+
+      // 定期的に予測させてみる
+      interval(1000).subscribe(res => {
+        this.onCapture();
+      });
   }
   // Videoファイルが選択された際
   onFileSelect(event) {
@@ -71,9 +76,6 @@ export class DashboardComponent {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, width, height);
     const data = ctx.getImageData(0, 0, width, height);
-    let sum = 0;
-    data.data.forEach(v => { sum += v; });
-    console.log('sum', sum);
 
     const result = this.predictService.predict(data);
     this.predict = result;

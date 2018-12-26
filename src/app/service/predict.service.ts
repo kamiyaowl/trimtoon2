@@ -28,7 +28,7 @@ export class PredictService {
   ];
   model: tf.Model;
   constructor() {
-    tf.loadModel("/assets/model/model.json", false).then(x => {
+    tf.loadModel("/assets/model/model.json").then(x => {
       this.model = x;
       this.loaded$.next(true);
       console.log("model loaded", x);
@@ -45,7 +45,6 @@ export class PredictService {
       .reshape([1, 80, 45, 3])
       .cast("float32")
       .div(tf.scalar(255));
-    inputData.print(true);
 
     const p = (this.model.predict(inputData) as any).dataSync();
     const ps = Array.from(p).map((p, i) => { return { label: this.labels[i], p: p }});
